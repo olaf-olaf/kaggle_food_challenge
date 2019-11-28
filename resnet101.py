@@ -56,14 +56,21 @@ model.fc = nn.Sequential(nn.Linear(2048, 512),
                                  nn.Linear(512, NUM_CLASSES),
                                  nn.LogSoftmax(dim=1))
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.fc.parameters(), lr=0.003)
 
-
+# model.cuda()
 # Try to use a gpu if available
 if USE_GPU and torch.cuda.is_available():
     print('using device: cuda')
 else:
     print('using device: cpu')
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+model.cuda()
+optimizer = optim.Adam(model.fc.parameters(), lr=0.003)
+
+
+
 
 # Define training
 def train_model(epochs = 1):
@@ -72,7 +79,9 @@ def train_model(epochs = 1):
         for i, data in enumerate(train_loader, 0):
             print("BATCH", i)
             # get the inputs; data is a list of [inputs, labels]
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             inputs, labels = data
+            inputs,labels = inputs.to(device),labels.to(device)
 
             # zero the parameter gradients
             optimizer.zero_grad()
@@ -85,7 +94,7 @@ def train_model(epochs = 1):
 
             # print statistics AND SAVE MODEL
             running_loss += loss.item()
-            if i % 50 == 49:    # print every 2000 mini-batches
+            if i % 50== 49:    # print every 2000 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 50))
                 running_loss = 0.0
@@ -93,6 +102,7 @@ def train_model(epochs = 1):
         print('Finished Training')
 train_model()
 
+
 # SAVE LAST model
-torch.save(model.state_dict(), "first_resnet_model.pl")
-print("FINAL MODEL SAVED")
+torch.save(model.state_dict(), "first_resnet_model.p")
+print("FINAL MODEL SAVED AS")
