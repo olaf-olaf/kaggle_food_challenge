@@ -94,5 +94,5 @@ def train_model(epochs = 1):
 train_model()
 
 # SAVE LAST model
-torch.save(model.state_dict(), "first_resnet_model.py")
+torch.save(model.state_dict(), "first_resnet_model.pl")
 print("FINAL MODEL SAVED")
