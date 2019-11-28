@@ -89,7 +89,7 @@ def train_model(epochs = 1):
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 2000))
                 running_loss = 0.0
-                torch.save(model.state_dict(), "resnet_saves/model_iteration"+str(i)+"epoch"+str(epoch)+".pl")
+                torch.save(model.state_dict(), "model_iteration"+str(i)+"epoch"+str(epoch)+".pl")
         print('Finished Training')
 train_model()
 
