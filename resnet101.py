@@ -85,9 +85,9 @@ def train_model(epochs = 1):
 
             # print statistics AND SAVE MODEL
             running_loss += loss.item()
-            if i % 50 == 54:    # print every 2000 mini-batches
+            if i % 50 == 49:    # print every 2000 mini-batches
                 print('[%d, %5d] loss: %.3f' %
-                      (epoch + 1, i + 1, running_loss / 2000))
+                      (epoch + 1, i + 1, running_loss / 50))
                 running_loss = 0.0
                 torch.save(model.state_dict(), "model_iteration"+str(i)+"epoch"+str(epoch)+".pl")
         print('Finished Training')
