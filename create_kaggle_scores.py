@@ -62,7 +62,6 @@ def feed_forward():
         inputs, labels = inputs.to(device),labels.to(device)
         output = model(inputs)
         _, predicted = output.max(dim=1)
-        # print(predicted[0].item() + 1)
         for pred in predicted:
             print(pred)
             prediction_labels.append(pred.item() + 1)
