@@ -3,3 +3,4 @@ food-recognition-challenge/
 
 #Ignore saved models
 resnet_saves/
+first_resnet_model.pl
