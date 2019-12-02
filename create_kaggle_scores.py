@@ -36,7 +36,7 @@ transform = transforms.Compose([
     ])
 
 train_dataset = TestSetFood('food-recognition-challenge/sample.csv', transform)
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=50,shuffle=False, num_workers=2)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64,shuffle=False, num_workers=2)
 
 
 # Define whatever model you load here.

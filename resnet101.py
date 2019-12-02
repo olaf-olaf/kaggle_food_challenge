@@ -60,18 +60,18 @@ validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=6
 # Load resnet101 freeze all layers, and add one extra output layer
 model = models.resnet101(pretrained=True)
 
-# # unfreeze linear layers
-# for module in model.modules():
-#     if module._get_name() != 'Linear':
-#         print('layer: ',module._get_name())
-#         for param in module.parameters():
-#             param.requires_grad_(False)
-#     elif module._get_name() == 'Linear':
-#         print('layer: ',module._get_name())
-#         for param in module.parameters():
-#             param.requires_grad_(True)
-for param in model.parameters():
-    param.requires_grad = False
+# unfreeze linear layers
+for module in model.modules():
+    if module._get_name() != 'Linear':
+        print('layer: ',module._get_name())
+        for param in module.parameters():
+            param.requires_grad_(False)
+    elif module._get_name() == 'Linear':
+        print('layer: ',module._get_name())
+        for param in module.parameters():
+            param.requires_grad_(True)
+# for param in model.parameters():
+#     param.requires_grad = False
 
 # Added two linear layers with output of 80 classes and softmax activation.
 model.fc = nn.Sequential(
